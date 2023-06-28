@@ -1,37 +1,52 @@
-// index -> server.js
 const express = require("express");
-const mysql = require("mysql");
-const multer = require('multer');
+const bodyParser = require("body-parser");
+const db = require("./queries");
+//const mysql = require("mysql");
+//const multer = require('multer');
 
 // variables
-let state_connection = "Conexión Exitosa";
+//let state_connection = "Conexión Exitosa";
 
 // incializamos el servidor
 const app = express();
 const port = 3000;
-const upload = multer(); // Configurar multer
+//const upload = multer(); // Configurar multer
 
 app.use(express.json());
+app.use(
+    bodyParser.urlencoded({
+        extended: true
+    })
+);
+
+app.get('/', (req, res) => {
+    res.json({
+        Bienvenido: "API creada con NODEJS, Express y MYSQL"
+    });
+});
+
+app.get('/dispositivos', db.getDispositivos);
+app.get('/dispositivos/:id', db.getDispositivoByID);
 
 // configuramos la conexión
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'sa',
-    password: '12345678',
-    database: 'my_smarthome'
-});
+//const connection = mysql.createConnection({
+//    host: 'localhost',
+//    user: 'sa',
+//   password: '12345678',
+//    database: 'my_smarthome'
+//});
 
 // realizamos la conexion a MYSQL
-connection.connect((exception) => {
-    if (exception) state_connection = "Error al Conectar con MySQL: " + exception.stack;
-    console.log(state_connection);
-});
+//connection.connect((exception) => {
+//    if (exception) state_connection = "Error al Conectar con MySQL: " + exception.stack;
+//    console.log(state_connection);
+//});
 
 /* 
 
         Consultas para comunicarnos con la APP Móvil
 
-*/
+
 
 // Extrae todos los dispositivos, de Activados (1) a Desactivados (0)
 app.get('/api/registros', (req, res) => {
@@ -131,7 +146,9 @@ app.post('/my_home/dispositivo', upload.none(), async(req, res) => {
 // Elimina un Dispositivo
 //app.delete();
 
+*/
+
 // ponemos el Server en escucha en port 3000
 app.listen(port, () => {
-    console.log("API ejecutandose en http://localhost:" + connection.threadId);
+    console.log("API ejecutandose en el puerto: %d", port);
 });
