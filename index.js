@@ -27,6 +27,9 @@ app.get('/', (req, res) => {
 
 app.get('/dispositivos', db.getDispositivos);
 app.get('/dispositivos/:id', db.getDispositivoByID);
+app.get('/estados', db.getEstado);
+app.put('/dispositivo', db.changeEstado);
+app.post('/dispositivo', db.addDispositivo);
 
 // configuramos la conexión
 //const connection = mysql.createConnection({
