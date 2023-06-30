@@ -31,20 +31,6 @@ app.get('/estados', db.getEstado);
 app.put('/dispositivo', db.changeEstado);
 app.post('/dispositivo', db.addDispositivo);
 
-// configuramos la conexión
-//const connection = mysql.createConnection({
-//    host: 'localhost',
-//    user: 'sa',
-//   password: '12345678',
-//    database: 'my_smarthome'
-//});
-
-// realizamos la conexion a MYSQL
-//connection.connect((exception) => {
-//    if (exception) state_connection = "Error al Conectar con MySQL: " + exception.stack;
-//    console.log(state_connection);
-//});
-
 /* 
 
         Consultas para comunicarnos con la APP Móvil
